@@ -16,5 +16,6 @@ public class Authority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private  String name;
-    private Set<>
+    @ManyToMany(mappedBy = "authorities")
+    private Set<Users> users;
 }

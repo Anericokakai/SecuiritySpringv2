@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class SecurityUser  implements UserDetails {
@@ -14,7 +15,11 @@ public class SecurityUser  implements UserDetails {
     private  final Users users;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(()->"read");
+
+        return users.getAuthorities()
+                .stream()
+                .map(SecurityAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
