@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -33,6 +34,11 @@ private  final CustomAuthenticationManager customAuthenticationManager;
 
         var auth=customAuthenticationManager.authenticate(customAuth);
 
-        filterChain.doFilter(request,response);
+
+        if(auth.isAuthenticated()){
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            filterChain.doFilter(request,response);
+        }
+
     }
 }
