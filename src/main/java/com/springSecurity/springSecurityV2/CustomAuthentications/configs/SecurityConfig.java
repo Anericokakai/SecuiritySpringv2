@@ -16,7 +16,7 @@ private  final CustomAuthenticationFilter customAuthenticationFilter;
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
 
    return http.addFilterAt(customAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
-           .authorizeHttpRequests(req->req.requestMatchers("/home").permitAll()
+           .authorizeHttpRequests(req->req
                    .anyRequest()
                    .authenticated())
             .build();
