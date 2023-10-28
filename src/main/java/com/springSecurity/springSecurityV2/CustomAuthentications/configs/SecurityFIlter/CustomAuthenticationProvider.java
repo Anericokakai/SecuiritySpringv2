@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider  implements AuthenticationProvider {
 
-    @Value("our.secret.key")
+    @Value("${our.secret.key}")
     private  String key;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -30,6 +30,6 @@ public class CustomAuthenticationProvider  implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
 //   how does the auth Mager knows the Auth provider
-        return CustomAuthenticationManager.class.equals(authentication);
+        return CustomAuthentication.class.equals(authentication);
     }
 }

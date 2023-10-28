@@ -10,13 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class CustomAuthenticationManager implements AuthenticationManager {
-    private  final  CustomAuthenticationProvider customAuthenticationProvider;
+    private  final  CustomAuthenticationProvider provider;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if(customAuthenticationProvider.supports(authentication.getClass())){
-            return customAuthenticationProvider.authenticate(authentication);
+        if(provider.supports(authentication.getClass())){
+          return   provider.authenticate(authentication);
+        } else{
+            throw new BadCredentialsException("no auth provider for the given url");
         }
-        throw new BadCredentialsException("no auth provider for the given url");
+
     }
 
 }
